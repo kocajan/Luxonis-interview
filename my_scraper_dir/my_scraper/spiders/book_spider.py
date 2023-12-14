@@ -1,18 +1,35 @@
 import scrapy
-from my_scraper.items import BooksItem
+
+
+# Print a current path
+import os
+
+current_path = os.getcwd()
+print("Current Path:", current_path)
+
+from my_scraper_dir.my_scraper.items import BooksItem
 
 
 class BookSpider(scrapy.Spider):
     name = "book"
     start_urls = ["https://books.toscrape.com/"]
 
-    def __init__(self, *args, **kwargs):
-        super(BookSpider, self).__init__(*args, **kwargs)
+    def __init__(self, max_books: int, database_info: dict):
+        """
+        Initialize the spider.
+
+        :param max_books:
+        :param database_info:
+        """
+        super(BookSpider, self).__init__()
         # Set the counter of the collected books to 0 (TODO: use internal counter if possible)
         self.counter = 0
 
+        # Save the info about the database
+        self.database_info = database_info
+
         # Set the maximum number of books to collect
-        self.max_books = 500
+        self.max_books = max_books
 
     def parse(self, response):
         # Create the item to store the information

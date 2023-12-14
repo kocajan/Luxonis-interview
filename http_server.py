@@ -86,7 +86,7 @@ class ServerHandler(SimpleHTTPRequestHandler):
         return html_start, html_end
 
 
-def run_server(ip: str, port: int, image_urls: list, titles: list) -> None:
+def send_data_to_http(ip: str, port: int, image_urls: list, titles: list) -> None:
     """
     Run the server.
 
@@ -109,10 +109,9 @@ def run_server(ip: str, port: int, image_urls: list, titles: list) -> None:
 
 if __name__ == '__main__':
     PORT = 8080
-    handler = ServerHandler
 
     image_url = "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w1200/2023/10/free-images.jpg"
     title = "Free Images"
 
     ip = "127.0.0.1"
-    run_server(ip, PORT, [image_url], [title])
+    send_data_to_http(ip, PORT, [image_url], [title])

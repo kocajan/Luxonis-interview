@@ -17,11 +17,18 @@ class BooksPipeline:
 class PostgresPipeline:
     def __init__(self):
         # Connection details
-        hostname = "localhost"
-        username = "jan"
-        password = "123456"
-        database = "books_db"
+        self.connection = None
+        self.cursor = None
 
+    def open_spider(self, spider):
+        host_name = spider.database_info["host_name"]
+        user_name = spider.database_info["user_name"]
+        password = spider.database_info["password"]
+        database_name = spider.database_info["database_name"]
+
+        self.process_database(host_name, user_name, password, database_name)
+
+    def process_database(self, hostname, username, password, database):
         # Create the database or connect to the existing one
         self.connection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
 
