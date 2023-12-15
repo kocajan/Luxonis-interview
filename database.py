@@ -5,6 +5,8 @@ def prepare_database(dbname: str, table_name:str, user: str, password: str, host
     """
     Prepare the PostgreSQL database for storing the scraped data.
 
+    Note: Using psycopg2 library [psycopg2.connect()] to connect to the database. More info: https://www.psycopg.org/
+
     :param dbname: name of the database
     :param table_name: name of the table in the database
     :param user: username used to authenticate
@@ -43,6 +45,8 @@ def load_data_from_database(dbname: str, table_name:str, user: str, password: st
     NOTE:   This function extracts only a specific format of data for a specific use case. Therefore, it is not
             a general function that can be used for any database.
 
+    Note: Using psycopg2 library [psycopg2.connect()] to connect to the database. More info: https://www.psycopg.org/
+
     :param dbname: name of the database
     :param table_name: name of the table in the database
     :param user: username used to authenticate
@@ -76,15 +80,3 @@ def load_data_from_database(dbname: str, table_name:str, user: str, password: st
 
     return {"names": names, "image_urls": image_urls}
 
-
-if __name__ == "__main__":
-    dbname = "books_db"
-    user = "jan"
-    password = "123456"
-    host = "localhost"
-    port = "5432"
-    table_name = "books"
-
-    data = load_data_from_database(dbname, table_name, user, password, host, port)
-
-    print(data)

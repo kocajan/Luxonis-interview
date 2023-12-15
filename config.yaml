@@ -1,4 +1,7 @@
+# Database related configuration parameters
 database:
+  # Note: Using postgres database -> interacting via psycopg2 (more info: https://www.psycopg.org/)
+  #
   hostname: "localhost"
   username: "postgres"
   password: "123456"
@@ -6,11 +9,14 @@ database:
   table_name: "real_estates"
   port: "5432"
 
+# Scrapy related configuration parameters
 scraper:
   name: "reality"
   url: "https://www.sreality.cz/en/search/for-sale/apartments"
   max_items: 500
+  obey_robots_txt: False
 
+# HTTP server related configuration parameters
 http:
   ip: "127.0.0.1"
   port: 8080

@@ -1,5 +1,5 @@
-from http.server import SimpleHTTPRequestHandler
 from socketserver import TCPServer
+from http.server import SimpleHTTPRequestHandler
 
 
 class ServerHandler(SimpleHTTPRequestHandler):
@@ -36,6 +36,7 @@ class ServerHandler(SimpleHTTPRequestHandler):
 
         :param titles: list of titles (strings)
         :param image_urls: list of image URLs (strings)
+
         :return: None
         """
         self.titles = titles
@@ -95,6 +96,7 @@ def send_data_to_http(ip: str, port: int, image_urls: list, titles: list) -> Non
     :param port: port number (int)
     :param image_urls: image URLs (list of str)
     :param titles: titles (list of str)
+
     :return: None
     """
     # Get the server handler

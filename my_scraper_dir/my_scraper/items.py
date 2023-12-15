@@ -1,16 +1,9 @@
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/items.html
+# ------------------- Scrapy items -------------------
 
 import scrapy
 
 
-class BooksItem(scrapy.Item):
-    name = scrapy.Field()
-    image = scrapy.Field()
-
-
 class RealityItem(scrapy.Item):
+    # Define the fields for your item here:
     name = scrapy.Field()
     image_url = scrapy.Field()
