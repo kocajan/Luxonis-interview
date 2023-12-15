@@ -9,22 +9,19 @@ from itemadapter import ItemAdapter
 import psycopg2
 
 
-class BooksPipeline:
-    def process_item(self, item, spider):
-        return item
-
-
 class PostgresPipeline:
     def __init__(self):
         # Connection details
         self.connection = None
         self.cursor = None
+        self.table_name = None
 
     def open_spider(self, spider):
         host_name = spider.database_info["host_name"]
         user_name = spider.database_info["user_name"]
         password = spider.database_info["password"]
         database_name = spider.database_info["database_name"]
+        self.table_name = spider.database_info["table_name"]
 
         self.process_database(host_name, user_name, password, database_name)
 
@@ -36,14 +33,14 @@ class PostgresPipeline:
         self.cursor = self.connection.cursor()
 
         # Create the table if it does not exist
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS books (name TEXT, image TEXT)")
+        self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {self.table_name} (name TEXT, image TEXT);")
 
         # Delete all the data from the table
-        self.cursor.execute("DELETE FROM books")
+        self.cursor.execute(f"DELETE FROM {self.table_name};")
 
     def process_item(self, item, spider):
         # Define insert statement
-        self.cursor.execute(f"INSERT INTO books (name, image) VALUES (%s, %s)", (item["name"], item["image"]))
+        self.cursor.execute(f"INSERT INTO {self.table_name} (name, image) VALUES ({item['name']}, {item['image']})")
 
         # Execute the statement
         self.connection.commit()

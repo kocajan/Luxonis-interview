@@ -17,6 +17,7 @@ def main():
     username = config["database"]["username"]
     password = config["database"]["password"]
     database = config["database"]["database_name"]
+    table = config["database"]["table_name"]
     port = config["database"]["port"]
     max_books = config["scraper"]["max_items"]
     http_ip = config["http"]["ip"]
@@ -27,8 +28,9 @@ def main():
     # Create a crawler process
     process = CrawlerProcess()
 
-    # Tell the process which spider to use
-    database_info = {"hostname": hostname, "username": username, "password": password, "database": database}
+    # Tell the process which spider to use and pass the arguments
+    database_info = {"hostname": hostname, "username": username, "password": password, "database": database,
+                     "table_name": table}
     process.crawl(BookSpider, max_books=max_books, database_info=database_info)
 
     # Start the crawling process
@@ -36,7 +38,8 @@ def main():
 
     # ----------- Load the data from the database -----------
     # Load the data from the database (format: {"names": ["book_name1", ...], "images": ["image_url1", ..]})
-    data = load_data_from_database(dbname=database, user=username, password=password, host=hostname, port=port)
+    data = load_data_from_database(dbname=database, table_name=table, user=username, password=password, host=hostname,
+                                   port=port)
 
     # Send the data to the website
     image_ext = data["image_urls"]

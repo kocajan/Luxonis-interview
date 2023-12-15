@@ -1,7 +1,7 @@
 import psycopg2
 
 
-def load_data_from_database(dbname: str, user: str, password: str, host: str, port: str) -> dict:
+def load_data_from_database(dbname: str, table_name:str, user: str, password: str, host: str, port: str) -> dict:
     """
     Load data from the given PostgreSQL database.
 
@@ -9,6 +9,7 @@ def load_data_from_database(dbname: str, user: str, password: str, host: str, po
             a general function that can be used for any database.
 
     :param dbname: name of the database
+    :param table_name: name of the table in the database
     :param user: username used to authenticate
     :param password: password used to authenticate
     :param host: database host address
@@ -23,7 +24,7 @@ def load_data_from_database(dbname: str, user: str, password: str, host: str, po
     cur = conn.cursor()
 
     # Read the data
-    cur.execute("SELECT * FROM books")
+    cur.execute(f"SELECT * FROM {table_name};")
 
     # Extract data
     names = []
@@ -47,7 +48,8 @@ if __name__ == "__main__":
     password = "123456"
     host = "localhost"
     port = "5432"
+    table_name = "books"
 
-    data = load_data_from_database(dbname, user, password, host, port)
+    data = load_data_from_database(dbname, table_name, user, password, host, port)
 
     print(data)

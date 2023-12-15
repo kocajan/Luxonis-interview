@@ -18,8 +18,11 @@ class BookSpider(scrapy.Spider):
         """
         Initialize the spider.
 
-        :param max_books:
-        :param database_info:
+        :param max_books: maximum number of books to collect
+        :param database_info: dictionary with the information about the database (format: {"hostname": "hostname",
+                                                                                            "username": "username",
+                                                                                            "password": "password",
+                                                                                            "database": "database"})
         """
         super(BookSpider, self).__init__()
         # Set the counter of the collected books to 0 (TODO: use internal counter if possible)

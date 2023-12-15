@@ -3,6 +3,7 @@ database:
   username: "jan"
   password: "123456"
   database_name: "books_db"
+  table_name: "books"
   port: "5432"
 
 scraper:
