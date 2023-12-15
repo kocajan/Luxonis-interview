@@ -17,10 +17,10 @@ class PostgresPipeline:
         self.table_name = None
 
     def open_spider(self, spider):
-        host_name = spider.database_info["host_name"]
-        user_name = spider.database_info["user_name"]
+        host_name = spider.database_info["hostname"]
+        user_name = spider.database_info["username"]
         password = spider.database_info["password"]
-        database_name = spider.database_info["database_name"]
+        database_name = spider.database_info["database"]
         self.table_name = spider.database_info["table_name"]
 
         self.process_database(host_name, user_name, password, database_name)
@@ -33,14 +33,15 @@ class PostgresPipeline:
         self.cursor = self.connection.cursor()
 
         # Create the table if it does not exist
-        self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {self.table_name} (name TEXT, image TEXT);")
+        self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {self.table_name} (name TEXT, image_url TEXT);")
 
         # Delete all the data from the table
         self.cursor.execute(f"DELETE FROM {self.table_name};")
 
     def process_item(self, item, spider):
         # Define insert statement
-        self.cursor.execute(f"INSERT INTO {self.table_name} (name, image) VALUES ({item['name']}, {item['image']})")
+        self.cursor.execute(f"INSERT INTO {self.table_name} (name, image_url) VALUES (%s, %s)", (item["name"],
+                                                                                                 item["image_url"]))
 
         # Execute the statement
         self.connection.commit()

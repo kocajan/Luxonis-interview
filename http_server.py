@@ -7,6 +7,7 @@ class ServerHandler(SimpleHTTPRequestHandler):
         super().__init__(request=request, client_address=client_address, server=server)
         self.titles = []
         self.image_urls = []
+        self.keep_running = True
 
     def do_GET(self) -> None:
         """
@@ -102,7 +103,9 @@ def send_data_to_http(ip: str, port: int, image_urls: list, titles: list) -> Non
     # Set the titles and image URLs
     handler.set_titles_and_image_urls(handler, titles, image_urls)
 
+    # Run the server
+    keep_running = True
     with TCPServer((ip, port), handler) as httpd:
         print(f"Serving on http://{ip}:{port}")
-        httpd.serve_forever()
-
+        while keep_running:
+            httpd.handle_request()

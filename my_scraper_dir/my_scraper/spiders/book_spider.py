@@ -1,13 +1,6 @@
 import scrapy
-
-
-# Print a current path
-import os
-
-current_path = os.getcwd()
-print("Current Path:", current_path)
-
-from my_scraper_dir.my_scraper.items import BooksItem
+# from my_scraper_dir.my_scraper.items import BooksItem
+from ..items import BooksItem
 
 
 class BookSpider(scrapy.Spider):
@@ -16,7 +9,7 @@ class BookSpider(scrapy.Spider):
 
     def __init__(self, max_books: int, database_info: dict):
         """
-        Initialize the spider.
+        Initialize the spider that scrapes the books store website: https://books.toscrape.com/.
 
         :param max_books: maximum number of books to collect
         :param database_info: dictionary with the information about the database (format: {"hostname": "hostname",
@@ -54,6 +47,10 @@ class BookSpider(scrapy.Spider):
 
             # Increment the counter
             self.counter += 1
+
+        # Check if the maximum number of books has been reached
+        if self.counter >= self.max_books:
+            return
 
         # Get the next page
         next_page = response.css("li.next a::attr(href)").get()

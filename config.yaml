@@ -1,14 +1,14 @@
 database:
   hostname: "localhost"
-  username: "jan"
+  username: "postgres"
   password: "123456"
-  database_name: "books_db"
-  table_name: "books"
+  database_name: "postgres" # "real_estates_db"
+  table_name: "real_estates"
   port: "5432"
 
 scraper:
-  name: "books"
-  url: "https://books.toscrape.com/"
+  name: "reality"
+  url: "https://www.sreality.cz/en/search/for-sale/apartments"
   max_items: 500
 
 http:

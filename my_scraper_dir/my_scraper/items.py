@@ -9,3 +9,8 @@ import scrapy
 class BooksItem(scrapy.Item):
     name = scrapy.Field()
     image = scrapy.Field()
+
+
+class RealityItem(scrapy.Item):
+    name = scrapy.Field()
+    image_url = scrapy.Field()
