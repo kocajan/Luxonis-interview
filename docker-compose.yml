@@ -8,6 +8,13 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
 
+    # Check if the postgres server is ready
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 20s
+      retries: 5
+
   my_python_app:
     build:
       context: .
@@ -24,4 +31,5 @@ services:
 
     # Wait for the postgres server to be ready before starting the python app
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy

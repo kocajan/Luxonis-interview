@@ -10,7 +10,7 @@ from src.my_scraper_dir.my_scraper.spiders.reality_spider import RealitySpider
 def main():
     print(" ------------------- *INTERVIEW PROJECT* ------------------- ")
     print(" -> Jan Koca")
-    print(" -> 2023-12")
+    print(" -> 2023-12\n")
     # ----------- Extract the project configuration -----------
     # Load the configuration file
     config = yaml.safe_load(open("cfg/config.yaml"))
