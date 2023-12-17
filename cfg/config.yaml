@@ -1,11 +1,10 @@
 # Database related configuration parameters
 database:
   # Note: Using postgres database -> interacting via psycopg2 (more info: https://www.psycopg.org/)
-  #
-  hostname: "localhost"
+  hostname: "postgres"
   username: "postgres"
   password: "123456"
-  database_name: "postgres" # "real_estates_db"
+  database_name: "reality_db"
   table_name: "real_estates"
   port: "5432"
 
@@ -18,5 +17,6 @@ scraper:
 
 # HTTP server related configuration parameters
 http:
-  ip: "127.0.0.1"
+  docker_ip: "0.0.0.0"
+  local_ip: "127.0.0.1"
   port: 8080

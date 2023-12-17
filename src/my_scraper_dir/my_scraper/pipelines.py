@@ -40,6 +40,9 @@ class PostgresPipeline:
         # Close the connection
         self.connection.close()
 
+        print("- Spider closed.")
+
+
     # Helper methods
     def process_database(self, dbname: str, user: str, password: str, host: str, port: str) -> None:
         """

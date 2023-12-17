@@ -1,4 +1,6 @@
 # ------------------- Scrapy settings -------------------
+# Note: These settings are overwritten by the settings in the main.py file when the crawler is run
+#       -> might not be up-to-date
 
 # The name of the scrapy project
 BOT_NAME = 'my_scraper'
@@ -14,3 +16,6 @@ ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
     "my_scraper.pipelines.PostgresPipeline": 300,
 }
+
+# Suppress the logging messages
+LOG_ENABLED = False

@@ -1,6 +1,6 @@
 import scrapy
 
-from my_scraper_dir.my_scraper.items import RealityItem
+from src.my_scraper_dir.my_scraper.items import RealityItem
 
 
 class RealitySpider(scrapy.Spider):
@@ -41,6 +41,7 @@ class RealitySpider(scrapy.Spider):
         # Parse the JSON response
         data = response.json()
 
+        print(f" -> Scraping {self.current_page}. page...")
         # Get the information from the website
         for flat in data['_embedded']['estates']:
             # Check if the maximum number of flats has been reached
@@ -56,6 +57,9 @@ class RealitySpider(scrapy.Spider):
 
             # Increment the counter
             self.counter += 1
+
+            if self.counter % 10 == 0 or self.counter == self.max_flats:
+                print(f"  -> {self.counter} flats collected.")
 
         # Check if the maximum number of flats has been reached
         if self.counter < self.max_flats:

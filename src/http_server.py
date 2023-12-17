@@ -88,7 +88,7 @@ class ServerHandler(SimpleHTTPRequestHandler):
         return html_start, html_end
 
 
-def send_data_to_http(ip: str, port: int, image_urls: list, titles: list) -> None:
+def send_data_to_http(ip: str, port: int, image_urls: list, titles: list, mapped_ip: str = "") -> None:
     """
     Run the server.
 
@@ -96,6 +96,7 @@ def send_data_to_http(ip: str, port: int, image_urls: list, titles: list) -> Non
     :param port: port number (int)
     :param image_urls: image URLs (list of str)
     :param titles: titles (list of str)
+    :param mapped_ip: IP address that is the "ip" parameter mapped to (str)
 
     :return: None
     """
@@ -105,9 +106,13 @@ def send_data_to_http(ip: str, port: int, image_urls: list, titles: list) -> Non
     # Set the titles and image URLs
     handler.set_titles_and_image_urls(handler, titles, image_urls)
 
+    # Set the result IP address
+    result_ip = mapped_ip if mapped_ip else ip
+
     # Run the server
     keep_running = True
+    print("- Press Ctrl+C to stop the server.")
     with TCPServer((ip, port), handler) as httpd:
-        print(f"Serving on http://{ip}:{port}")
+        print(f"- Serving on http://{result_ip}:{port}")
         while keep_running:
             httpd.handle_request()

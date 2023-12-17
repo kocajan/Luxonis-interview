@@ -1,0 +1,27 @@
+version: '1'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      # These variables have to match the variables in the cfg/config.yaml file
+      POSTGRES_DB: reality_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+
+  my_python_app:
+    build:
+      context: .
+    container_name: my_python_app
+    command: python -u main.py
+    ports:
+      # Format: port1:port2, where port1 is the port on the host machine, and port2 is the port inside the container
+      # Note: These ports should match the ports in the cfg/config.yaml file
+      # - Ports for the http server
+      - "127.0.0.1:8080:8080"
+
+      # - Ports for the postgres server
+      - "5433:5432"
+
+    # Wait for the postgres server to be ready before starting the python app
+    depends_on:
+      - postgres
